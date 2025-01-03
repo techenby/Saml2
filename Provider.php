@@ -585,16 +585,21 @@ class Provider extends AbstractProvider implements SocialiteProvider
         $this->validateTimestamps();
         $this->validateSignature();
 
+        Log::info('SAML $this', ['this' => $this]);
         $assertion = $this->getFirstAssertion();
         Log::info('SAML Assertion', ['assertion' => $assertion]);
         $attributeStatement = $assertion->getFirstAttributeStatement();
         Log::info('SAML $attributeStatement', ['attributeStatement' => $attributeStatement]);
+        Log::info('SAML $attributeStatement', ['attributeStatement->getAll' => $attributeStatement->->getAllAttributes()]);
 
         $this->user = new User;
         $this->user->setAssertion($assertion);
         Log::info('SAML user before map', ['user' => $this->user]);
+        
+        Log::info('SAML getNameID', ['id' => $assertion->getSubject()->getNameID()->getValue()]);
         $this->user->map(['id' => $assertion->getSubject()->getNameID()->getValue()]);
 
+        Log::info('SAML mapped', $this->mapAttributes($attributeStatement));
         if ($attributeStatement) {
             $this->user->map($this->mapAttributes($attributeStatement));
             $this->user->setRaw($attributeStatement->getAllAttributes());
