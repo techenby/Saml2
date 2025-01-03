@@ -590,7 +590,7 @@ class Provider extends AbstractProvider implements SocialiteProvider
         Log::info('SAML Assertion', ['assertion' => $assertion]);
         $attributeStatement = $assertion->getFirstAttributeStatement();
         Log::info('SAML $attributeStatement', ['attributeStatement' => $attributeStatement]);
-        Log::info('SAML $attributeStatement', ['attributeStatement->getAll' => $attributeStatement->->getAllAttributes()]);
+        Log::info('SAML $attributeStatement', ['attributeStatement->getAll' => $attributeStatement->getAllAttributes()]);
 
         $this->user = new User;
         $this->user->setAssertion($assertion);
