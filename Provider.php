@@ -585,7 +585,7 @@ class Provider extends AbstractProvider implements SocialiteProvider
         $this->validateTimestamps();
         $this->validateSignature();
 
-        Log::info('SAML $this', ['this' => $this]);
+        dd($this);
         $assertion = $this->getFirstAssertion();
         Log::info('SAML Assertion', ['assertion' => $assertion]);
         $attributeStatement = $assertion->getFirstAttributeStatement();
